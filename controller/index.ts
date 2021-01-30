@@ -24,7 +24,7 @@ export function addNewData(body: IBody) {
 
   // Validate the keys in rule
   const defaultKeys = ['field', 'condition', 'condition_value'];
-  const defaultTypes = ['string', 'string', 'string or number or object'];
+  const defaultFieldType = ['string', 'string', 'string or number or object'];
   const ruleKeys = Object.keys(rule);
 
   // Check the key and it's corresponding type. If it's correct, remove it from defaultKeys else return code 400
@@ -33,7 +33,7 @@ export function addNewData(body: IBody) {
       defaultKeys.splice(defaultKeys.indexOf(item), 1);
     }
     else {
-      output.message = `${item} should be of type ${defaultTypes[defaultKeys.indexOf(item)]}.`;
+      output.message = `${item} should be of type ${defaultFieldType[defaultKeys.indexOf(item)]}.`;
       output.status = "error";
       output.data = null;
       return { output, code: 400 };
