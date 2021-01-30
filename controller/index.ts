@@ -34,14 +34,6 @@ const output: IOutput = {
   "data": "",
 }
 
-const checkConditions = {
-  eq: '===',
-  neq: '!==',
-  gt: '>',
-  gte: '>=',
-  contains: 'contains',
-}
-
 //Add New Data to the database
 export function addNewData(req: Request, res: Response) {
   const { rule, data }: IBody = req.body;
@@ -85,6 +77,31 @@ export function addNewData(req: Request, res: Response) {
     res.status(400).send({...output});
   }
   const mainField = rule.field;
+  const presentCondition = rule.condition;
+  let bool;
+  
+  bool = presentCondition === 'gt' ? value > rule.condition_value :
+    presentCondition === 'gte' ? value >= rule.condition_value :
+      presentCondition === '===' ? value === rule.condition_value :
+        presentCondition === '!==' ? value !== rule.condition_value :
+          presentCondition === 'contains' ? value.includes(rule.condition_value) : null;
+
+
+  if (!bool) {
+    output.message = `field ${rule.field} failed validation.`;
+    output.status =  "error",
+    output.data = {
+      validation: {
+        error: false,
+        field: rule.field,
+        field_value: value,
+        condition: rule.condition,
+        condition_value: rule.condition_value
+      }
+    }
+    res.status(400).send({...output});
+  }
+
   output.message = `field ${mainField} successfully validated.`;
   output.status = 'success';
   output.data = {
