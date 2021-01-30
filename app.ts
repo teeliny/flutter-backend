@@ -17,7 +17,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 
 
-const port = 3000 || process.env.PORT;
+// const port = process.env.PORT;
+
+// app.listen(port, () => {
+//   console.log(`server started at http://localhost:${port}`);
+// });
+
+var port = process.env.PORT || '3000';
 
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
