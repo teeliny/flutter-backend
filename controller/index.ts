@@ -37,7 +37,6 @@ export function addNewData(body: IBody) {
       output.status = "error";
       output.data = null;
       return { output, code: 400 };
-      // res.status(400).send({ ...output });
     }
   });
 
@@ -47,7 +46,13 @@ export function addNewData(body: IBody) {
     output.status = "error";
     output.data = null;
     return { output, code: 400 };
-    // res.status(400).send({...output});
+  }
+
+  if (!data[rule.field] || typeof data !== 'object') {
+    output.message = `field ${rule.field} is missing from data.`;
+    output.status = 'error';
+    output.data = null;
+    return { output, code: 400 };
   }
   
   // Stringify the entire path to the required field and obtain the value using eval
@@ -59,7 +64,6 @@ export function addNewData(body: IBody) {
     output.status = "error";
     output.data = null;
     return { output, code: 400 };
-    // res.status(400).send({...output});
   }
 
   // Get present condition and oby=tain a boolean value if the condition is meant or not
@@ -86,7 +90,6 @@ export function addNewData(body: IBody) {
         condition_value: rule.condition_value
       }
     }
-    // res.status(400).send({...output});
     return { output, code: 400 };
   }
 
@@ -102,7 +105,6 @@ export function addNewData(body: IBody) {
       condition_value: rule.condition_value
     }
   }
-  // res.status(200).send({...output});
   return { output, code: 200 };
 }
 
