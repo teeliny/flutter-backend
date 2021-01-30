@@ -1,32 +1,8 @@
 import {Request, Response} from 'express';
-
-import fs from "fs";
-import { stringify } from 'querystring';
-import { resourceLimits } from 'worker_threads';
-
 import { obtainData } from "../utilities/dataHelper";
+import {IOutput, IBody} from "../interface/typings";
 
 const values = obtainData();
-
-interface IOutput {
-  "message": string,
-  "status": string,
-  "data": string | object | number | null,
-}
-
-interface IRule {
-  field: string,
-  condition: string,
-  condition_value: string | number | object,
-}
-interface IData {
-  [key: string]: string | number | object | null | any
-}
-
-interface IBody {
-  rule: IRule,
-  data: IData
-}
 
 const output: IOutput = {
   "message": "",

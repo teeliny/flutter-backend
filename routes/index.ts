@@ -1,12 +1,12 @@
 import express from 'express';
-var router = express.Router();
 import { addNewData, getAllData } from '../controller';
 
+const router = express.Router();
 
-//Get all the Company in the database
+//Get all the data in the database
 router.get('/', getAllData);
 
-//Get all the Company in the database
+//Post data in the database
 router.post('/validate-rule', addNewData);
 
 export default router;
