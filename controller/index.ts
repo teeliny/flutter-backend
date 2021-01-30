@@ -1,6 +1,8 @@
 import {Request, Response} from 'express';
 
 import fs from "fs";
+import { stringify } from 'querystring';
+import { resourceLimits } from 'worker_threads';
 
 import { obtainData } from "../utilities/dataHelper";
 
@@ -10,11 +12,6 @@ interface IOutput {
   "message": string,
   "status": string,
   "data": string | object | number | null,
-}
-const output: IOutput = {
-  "message": "",
-  "status": "",
-  "data": "",
 }
 
 interface IRule {
@@ -29,6 +26,20 @@ interface IData {
 interface IBody {
   rule: IRule,
   data: IData
+}
+
+const output: IOutput = {
+  "message": "",
+  "status": "",
+  "data": "",
+}
+
+const checkConditions = {
+  eq: '===',
+  neq: '!==',
+  gt: '>',
+  gte: '>=',
+  contains: 'contains',
 }
 
 //Add New Data to the database
@@ -63,13 +74,29 @@ export function addNewData(req: Request, res: Response) {
     output.data = null;
     res.status(400).send({...output});
   }
-  const mainField = rule.field.split('.');
-  const fieldArray = mainField.map(item => [item]);
   
+  const stringifyField = `data.${rule.field}`;
+  const value = eval(stringifyField);
 
-  console.log(fieldArray);
-
-  res.status(201).send({data: 'working'});
+  if (!value) {
+    output.message = `field ${rule.field} is missing from data.`;
+    output.status = "error";
+    output.data = null;
+    res.status(400).send({...output});
+  }
+  const mainField = rule.field;
+  output.message = `field ${mainField} successfully validated.`;
+  output.status = 'success';
+  output.data = {
+    validation: {
+      error: false,
+      field: `${mainField}`,
+      field_value: value,
+      condition: rule.condition,
+      condition_value: rule.condition_value
+    }
+  }
+  res.status(200).send({...output});
 }
 
 //Get all the Data in the database
