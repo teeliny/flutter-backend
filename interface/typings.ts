@@ -10,10 +10,10 @@ export interface IRule {
   condition_value: string | number | object,
 }
 export interface IData {
-  [key: string]: string | number | object | null | any
+  [key: string]: string | number | object | null
 }
 
 export interface IBody {
-  rule: IRule,
+  rule?: IRule,
   data: IData
 }
