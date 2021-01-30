@@ -7,6 +7,6 @@ import { addNewData, getAllData } from '../controller';
 router.get('/', getAllData);
 
 //Get all the Company in the database
-router.post('/', addNewData);
+router.post('/validate-rule', addNewData);
 
 export default router;

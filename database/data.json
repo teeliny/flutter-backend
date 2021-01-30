@@ -1,26 +1,9 @@
 [
   {
-    "createdAt": "Tue Aug 25 2020 01:07:24 GMT+0100 (British Summer Time)",
-    "updatedAt": "Wed Aug 26 2020 15:52:09 GMT+0100 (British Summer Time)",
-    "id": 3
-  },
-  {
-    "organization": "flutter",
-    "createdAt": "Sat Jan 30 2021 12:51:46 GMT+0100 (Central European Standard Time)",
-    "updatedAt": "Sat Jan 30 2021 12:51:46 GMT+0100 (Central European Standard Time)",
-    "products": [
-      "tea",
-      "milk"
-    ],
-    "marketValue": 5000,
-    "address": "Sangotedo Ajah",
-    "ceo": "Linc",
-    "country": "Taiwan",
-    "id": 2,
-    "noOfEmployees": 2,
-    "employees": [
-      "Top",
-      "Bottom"
-    ]
+    "name": "Taiwo Yinusa",
+    "github": "@teeliny",
+    "email": "teeliny@gmail.com",
+    "mobile": "0808817788",
+    "twitter": "@teeliny"
   }
 ]
